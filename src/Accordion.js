@@ -1,12 +1,10 @@
-import { useState } from "react";
-
-function Accordion({ item, itemNumber }) {
-  const [isClicked, setIsClicked] = useState(false);
+function Accordion({ item, itemNumber, currOpen, onOpen }) {
+  const isOpen = itemNumber === currOpen;
   return (
     <div
-      className={`item  ${isClicked === true ? "open" : ""}`}
+      className={`item  ${isOpen === true ? "open" : ""}`}
       onClick={() => {
-        setIsClicked((isClicked) => !isClicked);
+        onOpen(isOpen ? null : itemNumber);
       }}
     >
       <p className={`number  `}>
@@ -14,8 +12,8 @@ function Accordion({ item, itemNumber }) {
         {itemNumber}
       </p>
       <p className={`title`}>{item.title} </p>
-      <p className={`icon`}> {isClicked === true ? "-" : "+"}</p>
-      {isClicked && <p className={`content-box`}>{item.text}</p>}
+      <p className={`icon`}> {isOpen === true ? "-" : "+"}</p>
+      {isOpen === true && <p className={`content-box`}>{item.text}</p>}
     </div>
   );
 }
